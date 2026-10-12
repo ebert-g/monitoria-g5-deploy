@@ -1,0 +1,60 @@
+<header class="page-header page-toolbar">
+  <div>
+    <h1>Instituições</h1>
+    <p>Consulte uma instituição de ensino superior pelo ID para editar ou inativar.</p>
+  </div>
+  <a mat-flat-button routerLink="/ies/novo">
+    <mat-icon>add</mat-icon>
+    Nova instituição
+  </a>
+</header>
+
+<div class="pilha">
+  <section class="card" aria-label="Busca">
+    <app-busca-por-id rotulo="ID da instituição" (buscar)="buscar($event)" />
+  </section>
+
+  @if (carregando()) {
+    <p class="text-muted" role="status">Buscando...</p>
+  }
+
+  @if (erro()) {
+    <p class="alerta-erro" role="alert">
+      <mat-icon>error</mat-icon>
+      <span>{{ erro() }}</span>
+    </p>
+  }
+
+  @if (registro(); as ies) {
+    <section class="card" aria-labelledby="titulo-registro">
+      <div class="detalhes-cabecalho">
+        <h2 id="titulo-registro">{{ ies.nome }}</h2>
+        <app-status-chip [ativo]="ies.ativo" />
+      </div>
+
+      <dl class="detalhes">
+        <div><dt>ID</dt><dd>{{ ies.id }}</dd></div>
+        <div><dt>Sigla</dt><dd>{{ ies.sigla }}</dd></div>
+        <div><dt>E-mail central</dt><dd>{{ ies.emailCentral }}</dd></div>
+        <div><dt>Telefone central</dt><dd>{{ ies.telefoneCentral }}</dd></div>
+      </dl>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          class="botao-perigo"
+          [disabled]="!ies.ativo"
+          (click)="inativar(ies)"
+        >
+          <mat-icon>block</mat-icon>
+          Inativar
+        </button>
+        <a mat-flat-button [routerLink]="['/ies', ies.id, 'editar']">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </a>
+      </div>
+    </section>
+  }
+</div>

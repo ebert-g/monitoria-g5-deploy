@@ -1,0 +1,62 @@
+<header class="page-header page-toolbar">
+  <div>
+    <h1>Centros Acadêmicos</h1>
+    <p>Consulte um centro acadêmico pelo ID para editar ou inativar.</p>
+  </div>
+  <a mat-flat-button routerLink="/centros-academicos/novo">
+    <mat-icon>add</mat-icon>
+    Novo centro acadêmico
+  </a>
+</header>
+
+<div class="pilha">
+  <section class="card" aria-label="Busca">
+    <app-busca-por-id rotulo="ID do centro acadêmico" (buscar)="buscar($event)" />
+  </section>
+
+  @if (carregando()) {
+    <p class="text-muted" role="status">Buscando...</p>
+  }
+
+  @if (erro()) {
+    <p class="alerta-erro" role="alert">
+      <mat-icon>error</mat-icon>
+      <span>{{ erro() }}</span>
+    </p>
+  }
+
+  @if (registro(); as centro) {
+    <section class="card" aria-labelledby="titulo-registro">
+      <div class="detalhes-cabecalho">
+        <h2 id="titulo-registro">{{ centro.nome }}</h2>
+        <app-status-chip [ativo]="centro.ativo" />
+      </div>
+
+      <dl class="detalhes">
+        <div><dt>ID</dt><dd>{{ centro.id }}</dd></div>
+        <div><dt>Instituição</dt><dd>{{ centro.ies.sigla }} (ID {{ centro.ies.id }})</dd></div>
+        <div><dt>Coordenador</dt><dd>{{ centro.coordenador }}</dd></div>
+        <div><dt>E-mail central</dt><dd>{{ centro.emailCentral }}</dd></div>
+        <div><dt>Telefone central</dt><dd>{{ centro.telefoneCentral }}</dd></div>
+        <div><dt>Data de cadastramento</dt><dd>{{ centro.dataCadastramento | date: 'dd/MM/yyyy' }}</dd></div>
+      </dl>
+
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          class="botao-perigo"
+          [disabled]="!centro.ativo"
+          (click)="inativar(centro)"
+        >
+          <mat-icon>block</mat-icon>
+          Inativar
+        </button>
+        <a mat-flat-button [routerLink]="['/centros-academicos', centro.id, 'editar']">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </a>
+      </div>
+    </section>
+  }
+</div>

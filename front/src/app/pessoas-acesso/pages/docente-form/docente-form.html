@@ -1,0 +1,61 @@
+<header class="page-header">
+  <h1>{{ modoEdicao() ? 'Editar docente' : 'Novo docente' }}</h1>
+  <p>Informe os dados do docente. Campos com * são obrigatórios.</p>
+</header>
+
+@if (erroCarga()) {
+  <p class="alerta-erro" role="alert">
+    <mat-icon>error</mat-icon>
+    <span>{{ erroCarga() }}</span>
+  </p>
+}
+
+<section class="card">
+  <form [formGroup]="formulario" (ngSubmit)="salvar()">
+    <div class="form-grid">
+      <mat-form-field class="campo-largo">
+        <mat-label>ID do centro acadêmico</mat-label>
+        <input matInput type="number" min="1" formControlName="centroAcademicoId" />
+        <mat-hint>
+          {{ modoEdicao() ? 'O vínculo não pode ser alterado.' : 'Consulte o ID em Centros Acadêmicos.' }}
+        </mat-hint>
+        <mat-error>Informe um ID válido.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Matrícula</mat-label>
+        <input matInput formControlName="matricula" />
+        <mat-error>Campo obrigatório.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nome completo</mat-label>
+        <input matInput formControlName="nomeCompleto" />
+        <mat-error>Campo obrigatório.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" />
+        @if (formulario.controls.email.hasError('required')) {
+          <mat-error>Campo obrigatório.</mat-error>
+        } @else {
+          <mat-error>Informe um e-mail válido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Telefone</mat-label>
+        <input matInput type="tel" formControlName="telefone" placeholder="(71) 99999-9999" />
+        <mat-error>Campo obrigatório.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/docentes">Cancelar</a>
+      <button mat-flat-button type="submit" [disabled]="salvando() || erroCarga() !== null">
+        {{ salvando() ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</section>

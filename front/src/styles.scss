@@ -1,0 +1,238 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+      theme-type: light
+    ),
+    typography: (
+      plain-family: Inter,
+      brand-family: Inter,
+      bold-weight: 600,
+      medium-weight: 500,
+      regular-weight: 400
+    ),
+    density: 0
+  ));
+
+  @include mat.theme-overrides((
+    primary: #163b73,
+    on-primary: #ffffff,
+    primary-container: #eaf0fa,
+    on-primary-container: #102e59,
+    secondary-container: #eaf0fa,
+    on-secondary-container: #163b73,
+    background: #f8fafc,
+    on-background: #0f172a,
+    surface: #ffffff,
+    on-surface: #0f172a,
+    on-surface-variant: #475569,
+    outline: #64748b,
+    outline-variant: #e2e8f0,
+    surface-container-lowest: #ffffff,
+    surface-container-low: #f8fafc,
+    surface-container: #f1f5f9,
+    surface-container-high: #e2e8f0,
+    surface-container-highest: #e2e8f0,
+    error: #b91c1c,
+    on-error: #ffffff,
+    error-container: #fef2f2,
+    on-error-container: #991b1b,
+    inverse-surface: #0f172a,
+    inverse-on-surface: #ffffff
+  ));
+
+  @include mat.button-overrides((
+    filled-container-shape: 8px,
+    outlined-container-shape: 8px,
+    text-container-shape: 8px,
+    tonal-container-shape: 8px,
+    filled-container-height: 48px,
+    outlined-container-height: 48px,
+    text-container-height: 48px,
+    tonal-container-height: 48px
+  ));
+
+  @include mat.form-field-overrides((
+    outlined-container-shape: 8px
+  ));
+
+  @include mat.chips-overrides((
+    container-shape-radius: 24px
+  ));
+
+  @include mat.dialog-overrides((
+    container-shape: 12px
+  ));
+
+  @include mat.snack-bar-overrides((
+    container-shape: 8px
+  ));
+
+  @include mat.sidenav-overrides((
+    container-shape: 0,
+    container-width: 280px,
+    container-divider-color: #e2e8f0
+  ));
+}
+
+:root {
+  --app-focus: #2563eb;
+  --app-text-muted: #64748b;
+  --app-success: #166534;
+  --app-success-container: #f0fdf4;
+  --app-warning: #92400e;
+  --app-warning-container: #fffbeb;
+  --app-info: #1d4ed8;
+  --app-info-container: #eff6ff;
+  --app-radius-field: 8px;
+  --app-radius-card: 12px;
+}
+
+body {
+  margin: 0;
+  background: var(--mat-sys-background);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-large);
+}
+
+.page-header {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.section-title {
+  margin: 0 0 16px;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--app-radius-card);
+  padding: 24px;
+}
+
+.text-muted {
+  color: var(--app-text-muted);
+  margin: 0;
+}
+
+.page-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pilha {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+}
+
+.campo-largo {
+  grid-column: 1 / -1;
+}
+
+.detalhes-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+}
+
+.detalhes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px 16px;
+  margin: 0;
+
+  dt {
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--app-text-muted);
+  }
+
+  dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+.alerta-erro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: var(--app-radius-field);
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.botao-perigo {
+  --mat-button-filled-container-color: var(--mat-sys-error);
+  --mat-button-filled-label-text-color: var(--mat-sys-on-error);
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-outline-color: var(--mat-sys-error);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+@media (max-width: 767.98px) {
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-header {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+}

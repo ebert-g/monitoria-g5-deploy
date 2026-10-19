@@ -5,6 +5,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+ENV NG_CLI_ANALYTICS=false
 RUN npx ng build --configuration production
 
 FROM caddy:2-alpine
